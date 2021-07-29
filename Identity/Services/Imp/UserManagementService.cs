@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Identity.Controller.Contracts;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
@@ -115,6 +116,12 @@ namespace Identity.Services.Imp
             return new RegisterOutputDto {Status = "Success", Message = "User created successfully!"};
         }
 
+        public async Task<List<ApplicationUser>> GetUsers()
+        {
+            return await userManager.Users.ToListAsync();
+        }
+
+        
         private async Task AddRolesToRoleManager()
         {
             Type type = typeof(UserRoles);

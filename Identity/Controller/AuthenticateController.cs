@@ -1,10 +1,5 @@
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Identity.Controller.Contracts;
@@ -12,7 +7,7 @@ using Identity.Services;
 
 namespace Identity.Controller
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/user-management")]
     [ApiController]
     public class AuthenticateController : ControllerBase
     {
