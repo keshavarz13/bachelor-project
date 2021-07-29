@@ -65,20 +65,20 @@ namespace Identity.Services.Imp
             };
         }
 
-        public async Task<RegisterOutputDto> RegisterUser(RegisterModel model, string type)
+        public async Task<RegisterOutputDto> RegisterUser(RegisterInputDto inputDto, string type)
         {
             await AddRolesToRoleManager();
-            var userExists = await userManager.FindByNameAsync(model.Username);
+            var userExists = await userManager.FindByNameAsync(inputDto.Username);
             if (userExists != null)
                 throw new ValidationException("User already exists!");
 
             ApplicationUser user = new ApplicationUser()
             {
-                Email = model.Email,
+                Email = inputDto.Email,
                 SecurityStamp = Guid.NewGuid().ToString(),
-                UserName = model.Username
+                UserName = inputDto.Username
             };
-            var result = await userManager.CreateAsync(user, model.Password);
+            var result = await userManager.CreateAsync(user, inputDto.Password);
             if (!result.Succeeded)
                 throw new ValidationException("User creation failed! Please check user details and try again.");
 

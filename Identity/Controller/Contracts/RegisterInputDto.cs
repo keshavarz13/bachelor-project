@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Identity.Controller.Contracts
 {
-    public class RegisterModel
+    public class RegisterInputDto
     {
         [Required(ErrorMessage = "User Name is required")]
         public string Username { get; set; }

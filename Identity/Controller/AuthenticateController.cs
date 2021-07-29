@@ -39,11 +39,11 @@ namespace Identity.Controller
 
         [HttpPost]
         [Route("register")]
-        public async Task<IActionResult> Register([FromBody] RegisterModel model)
+        public async Task<IActionResult> Register([FromBody] RegisterInputDto inputDto)
         {
             try
             {
-                return Ok(await _userManagementService.RegisterUser(model, UserRoles.User));
+                return Ok(await _userManagementService.RegisterUser(inputDto, UserRoles.User));
             }
             catch (ValidationException e)
             {
@@ -58,11 +58,11 @@ namespace Identity.Controller
 
         [HttpPost]
         [Route("register-admin")]
-        public async Task<IActionResult> RegisterAdmin([FromBody] RegisterModel model)
+        public async Task<IActionResult> RegisterAdmin([FromBody] RegisterInputDto inputDto)
         {
             try
             {
-                return Ok(await _userManagementService.RegisterUser(model, UserRoles.Admin));
+                return Ok(await _userManagementService.RegisterUser(inputDto, UserRoles.Admin));
             }
             catch (ValidationException e)
             {
@@ -77,11 +77,11 @@ namespace Identity.Controller
         
         [HttpPost]
         [Route("register-writer")]
-        public async Task<IActionResult> RegisterWriter([FromBody] RegisterModel model)
+        public async Task<IActionResult> RegisterWriter([FromBody] RegisterInputDto inputDto)
         {
             try
             {
-                return Ok(await _userManagementService.RegisterUser(model, UserRoles.Writer));
+                return Ok(await _userManagementService.RegisterUser(inputDto, UserRoles.Writer));
             }
             catch (ValidationException e)
             {
