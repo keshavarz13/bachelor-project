@@ -121,7 +121,11 @@ namespace Identity.Services.Imp
             return await userManager.Users.ToListAsync();
         }
 
-        
+        public async Task<IdentityResult> RemoveUser(string username)
+        {
+            return await userManager.DeleteAsync(await userManager.FindByNameAsync(username));
+        }
+
         private async Task AddRolesToRoleManager()
         {
             Type type = typeof(UserRoles);
