@@ -6,5 +6,6 @@ namespace Identity.Services
     public interface IUserManagementService
     {
         Task<TokenOutputDto> GenerateJwtToken(LoginInputDto loginInputDto);
+        Task<RegisterOutputDto> RegisterUser(RegisterModel model, string type);
     }
 }

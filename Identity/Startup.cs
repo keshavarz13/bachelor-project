@@ -9,6 +9,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;  
 using System.Text;
 using Identity.Data;
+using Identity.Services;
+using Identity.Services.Imp;
 using Microsoft.OpenApi.Models;
 
 namespace Identity
@@ -25,8 +27,10 @@ namespace Identity
         // This method gets called by the runtime. Use this method to add services to the container.  
         public void ConfigureServices(IServiceCollection services)  
         {  
-            services.AddControllers();  
-  
+            services.AddControllers();
+
+            services.AddScoped<IUserManagementService, UserManagementService>();
+            
             // For Entity Framework  
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ConnStr")));  
   

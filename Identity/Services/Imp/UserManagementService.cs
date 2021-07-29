@@ -13,7 +13,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Identity.Services.Imp
 {
-    public class UserManagementService
+    public class UserManagementService : IUserManagementService
     {
         private readonly UserManager<ApplicationUser> userManager;
         private readonly RoleManager<IdentityRole> roleManager;
@@ -63,6 +63,69 @@ namespace Identity.Services.Imp
                 Type = "Bearer",
                 ExpirationTime = token.ValidTo
             };
+        }
+
+        public async Task<RegisterOutputDto> RegisterUser(RegisterModel model, string type)
+        {
+            await AddRolesToRoleManager();
+            var userExists = await userManager.FindByNameAsync(model.Username);
+            if (userExists != null)
+                throw new ValidationException("User already exists!");
+
+            ApplicationUser user = new ApplicationUser()
+            {
+                Email = model.Email,
+                SecurityStamp = Guid.NewGuid().ToString(),
+                UserName = model.Username
+            };
+            var result = await userManager.CreateAsync(user, model.Password);
+            if (!result.Succeeded)
+                throw new ValidationException("User creation failed! Please check user details and try again.");
+
+            switch (type)
+            {
+                case UserRoles.User:
+                {
+                    if (await roleManager.RoleExistsAsync(UserRoles.User))
+                    {
+                        await userManager.AddToRoleAsync(user, UserRoles.User);
+                    }
+
+                    break;
+                }
+                case UserRoles.Writer:
+                {
+                    if (await roleManager.RoleExistsAsync(UserRoles.Writer))
+                    {
+                        await userManager.AddToRoleAsync(user, UserRoles.Writer);
+                    }
+
+                    break;
+                }
+                case UserRoles.Admin:
+                {
+                    if (await roleManager.RoleExistsAsync(UserRoles.Admin))
+                    {
+                        await userManager.AddToRoleAsync(user, UserRoles.Admin);
+                    }
+
+                    break;
+                }
+            }
+            return new RegisterOutputDto {Status = "Success", Message = "User created successfully!"};
+        }
+
+        private async Task AddRolesToRoleManager()
+        {
+            Type type = typeof(UserRoles);
+            foreach (var p in type.GetFields())
+            {
+                var v = p.GetValue(null); // static classes cannot be instanced, so use null...
+                if (v == null) continue;
+                Console.WriteLine(v.ToString());
+                if (!await roleManager.RoleExistsAsync(v.ToString()))
+                    await roleManager.CreateAsync(new IdentityRole(v.ToString()));
+            }
         }
     }
 }
