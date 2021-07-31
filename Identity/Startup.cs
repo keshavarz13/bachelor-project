@@ -31,6 +31,8 @@ namespace Identity
 
             services.AddScoped<IUserManagementService, UserManagementService>();
             
+            services.AddAutoMapper(typeof(Startup));
+            
             // For Entity Framework  
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ConnStr")));  
   
