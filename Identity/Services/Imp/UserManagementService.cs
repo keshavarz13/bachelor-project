@@ -6,6 +6,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using Identity.Controller.Contracts;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -19,13 +20,15 @@ namespace Identity.Services.Imp
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IConfiguration _configuration;
+        private readonly IMapper _mapper;
         
         public UserManagementService(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager,
-            IConfiguration configuration)
+            IConfiguration configuration, IMapper mapper)
         {
             this._userManager = userManager;
             this._roleManager = roleManager;
             _configuration = configuration;
+            _mapper = mapper;
         }
 
         public async Task<TokenOutputDto> GenerateJwtToken(LoginInputDto loginInputDto)
@@ -117,9 +120,9 @@ namespace Identity.Services.Imp
             return new RegisterOutputDto {Status = "Success", Message = "User created successfully!"};
         }
 
-        public async Task<List<ApplicationUser>> GetUsers()
+        public async Task<List<UserReportOutputDto>> GetUsers()
         {
-            return await _userManager.Users.ToListAsync();
+            return _mapper.Map<List<UserReportOutputDto>>(await _userManager.Users.ToListAsync());
         }
 
         public async Task<IdentityResult> RemoveUser(string username)
@@ -127,14 +130,14 @@ namespace Identity.Services.Imp
             return await _userManager.DeleteAsync(await _userManager.FindByNameAsync(username));
         }
 
-        public async Task<List<ApplicationUser>> GetUserByPhoneNumber(string phoneNumber)
+        public async Task<List<UserReportOutputDto>> GetUserByPhoneNumber(string phoneNumber)
         {
-            return await _userManager.Users.AsQueryable().Where(x => x.PhoneNumber == phoneNumber).ToListAsync();
+            return _mapper.Map<List<UserReportOutputDto>>(await _userManager.Users.AsQueryable().Where(x => x.PhoneNumber == phoneNumber).ToListAsync());
         }
         
-        public async Task<List<ApplicationUser>> GetUserByEmail(string email)
+        public async Task<List<UserReportOutputDto>> GetUserByEmail(string email)
         {
-            return await _userManager.Users.AsQueryable().Where(x => x.Email == email).ToListAsync();
+            return _mapper.Map<List<UserReportOutputDto>>(await _userManager.Users.AsQueryable().Where(x => x.Email == email).ToListAsync());
         }
         
         private async Task AddRolesToRoleManager()

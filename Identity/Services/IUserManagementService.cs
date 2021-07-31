@@ -9,9 +9,9 @@ namespace Identity.Services
     {
         Task<TokenOutputDto> GenerateJwtToken(LoginInputDto loginInputDto);
         Task<RegisterOutputDto> RegisterUser(RegisterInputDto inputDto, string type);
-        Task<List<ApplicationUser>> GetUsers();
-        Task<List<ApplicationUser>> GetUserByPhoneNumber(string phoneNumber);
-        Task<List<ApplicationUser>> GetUserByEmail(string email);
+        Task<List<UserReportOutputDto>> GetUsers();
+        Task<List<UserReportOutputDto>> GetUserByPhoneNumber(string phoneNumber);
+        Task<List<UserReportOutputDto>> GetUserByEmail(string email);
         Task<IdentityResult> RemoveUser(string username);
     }
 }

@@ -19,7 +19,7 @@ namespace Identity.Controller
         }
 
         [HttpGet]
-        public async Task<List<ApplicationUser>> GetUsers()
+        public async Task<List<UserReportOutputDto>> GetUsers()
         {
             return await _userManagementService.GetUsers();
         }
@@ -27,14 +27,14 @@ namespace Identity.Controller
         
         [HttpGet]
         [Route("phone-number/{phoneNumber}")]
-        public async Task<List<ApplicationUser>> GetUserByPhoneNumber(string phoneNumber)
+        public async Task<List<UserReportOutputDto>> GetUserByPhoneNumber(string phoneNumber)
         {
             return await _userManagementService.GetUserByPhoneNumber(phoneNumber);
         }
         
         [HttpGet]
         [Route("email/{email}")]
-        public async Task<List<ApplicationUser>> GetUserByEmail(string email)
+        public async Task<List<UserReportOutputDto>> GetUserByEmail(string email)
         {
             return await _userManagementService.GetUserByEmail(email);
         }
