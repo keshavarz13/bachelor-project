@@ -7,6 +7,7 @@ namespace Identity.Options
     {
         public MappingProfile()
         {
+            CreateMap<ApplicationUser, UserReportOutputDto>();
         }
     }
 }
