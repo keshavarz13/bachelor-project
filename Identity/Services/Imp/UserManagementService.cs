@@ -122,7 +122,11 @@ namespace Identity.Services.Imp
 
         public async Task<List<UserReportOutputDto>> GetUsers()
         {
-            return _mapper.Map<List<UserReportOutputDto>>(await _userManager.Users.ToListAsync());
+            var originalUser = await _userManager.Users.ToListAsync();
+            var mappedUser = _mapper.Map<List<UserReportOutputDto>>(originalUser);
+            for (var i = 0; i < mappedUser.Count; i++)
+                mappedUser[i].Roles = await _userManager.GetRolesAsync(originalUser[i]);
+            return mappedUser;
         }
 
         public async Task<IdentityResult> RemoveUser(string username)
@@ -132,12 +136,20 @@ namespace Identity.Services.Imp
 
         public async Task<List<UserReportOutputDto>> GetUserByPhoneNumber(string phoneNumber)
         {
-            return _mapper.Map<List<UserReportOutputDto>>(await _userManager.Users.AsQueryable().Where(x => x.PhoneNumber == phoneNumber).ToListAsync());
+            var originalUser = await _userManager.Users.AsQueryable().Where(x => x.PhoneNumber == phoneNumber).ToListAsync();
+            var mappedUser = _mapper.Map<List<UserReportOutputDto>>(originalUser);
+            for (var i = 0; i < mappedUser.Count; i++)
+                mappedUser[i].Roles = await _userManager.GetRolesAsync(originalUser[i]);
+            return mappedUser;
         }
         
         public async Task<List<UserReportOutputDto>> GetUserByEmail(string email)
         {
-            return _mapper.Map<List<UserReportOutputDto>>(await _userManager.Users.AsQueryable().Where(x => x.Email == email).ToListAsync());
+            var originalUser = await _userManager.Users.AsQueryable().Where(x => x.Email == email).ToListAsync();
+            var mappedUser = _mapper.Map<List<UserReportOutputDto>>(originalUser);
+            for (var i = 0; i < mappedUser.Count; i++)
+                mappedUser[i].Roles = await _userManager.GetRolesAsync(originalUser[i]);
+            return mappedUser;
         }
         
         private async Task AddRolesToRoleManager()
