@@ -9,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;  
 using System.Text;
 using Identity.Data;
+using Identity.Models;
 using Identity.Services;
 using Identity.Services.Imp;
 using Microsoft.OpenApi.Models;

@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Identity.Controller.Contracts;
 using Identity.Services;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Identity.Controller
@@ -61,7 +60,5 @@ namespace Identity.Controller
                 throw;
             }
         }
-        
-        // todo: authorize this endpoints (admin) 
     }
 }

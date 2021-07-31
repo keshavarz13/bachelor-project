@@ -1,5 +1,6 @@
 using AutoMapper;
 using Identity.Controller.Contracts;
+using Identity.Models;
 
 namespace Identity.Options
 {
