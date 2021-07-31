@@ -126,6 +126,14 @@ namespace Identity.Services.Imp
             return await userManager.DeleteAsync(await userManager.FindByNameAsync(username));
         }
 
+        public async Task<List<ApplicationUser>> GetUserByPhoneNumber(string phoneNumber)
+        {
+            return await userManager.Users.AsQueryable().Where(x => x.PhoneNumber == phoneNumber).ToListAsync();
+        }
+        public async Task<List<ApplicationUser>> GetUserByEmail(string email)
+        {
+            return await userManager.Users.AsQueryable().Where(x => x.Email == email).ToListAsync();
+        }
         private async Task AddRolesToRoleManager()
         {
             Type type = typeof(UserRoles);

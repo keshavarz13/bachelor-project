@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Identity.Controller
 {
-    [Route("api/v1/user-management")]
+    [Route("api/v1/user")]
     public class UserManagementController : ControllerBase
     {
         private readonly IUserManagementService _userManagementService;
@@ -19,15 +19,27 @@ namespace Identity.Controller
         }
 
         [HttpGet]
-        [Route("user")]
         public async Task<List<ApplicationUser>> GetUsers()
         {
             return await _userManagementService.GetUsers();
         }
         
         
+        [HttpGet]
+        [Route("phone-number/{phoneNumber}")]
+        public async Task<List<ApplicationUser>> GetUserByPhoneNumber(string phoneNumber)
+        {
+            return await _userManagementService.GetUserByPhoneNumber(phoneNumber);
+        }
+        
+        [HttpGet]
+        [Route("email/{email}")]
+        public async Task<List<ApplicationUser>> GetUserByEmail(string email)
+        {
+            return await _userManagementService.GetUserByEmail(email);
+        }
+        
         [HttpDelete]
-        [Route("user")]
         public async Task<IActionResult> RemoveUser(string username)
         {
             try
@@ -44,5 +56,7 @@ namespace Identity.Controller
                 throw;
             }
         }
+        
+        // todo: authorize this endpoints (admin) 
     }
 }
