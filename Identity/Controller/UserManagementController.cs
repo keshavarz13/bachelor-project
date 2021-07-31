@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Identity.Controller.Contracts;
 using Identity.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,6 +20,7 @@ namespace Identity.Controller
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<List<UserReportOutputDto>> GetUsers()
         {
             return await _userManagementService.GetUsers();
@@ -27,6 +29,7 @@ namespace Identity.Controller
         
         [HttpGet]
         [Route("phone-number/{phoneNumber}")]
+        [Authorize(Roles = "Admin")]
         public async Task<List<UserReportOutputDto>> GetUserByPhoneNumber(string phoneNumber)
         {
             return await _userManagementService.GetUserByPhoneNumber(phoneNumber);
@@ -34,12 +37,14 @@ namespace Identity.Controller
         
         [HttpGet]
         [Route("email/{email}")]
+        [Authorize(Roles = "Admin")]
         public async Task<List<UserReportOutputDto>> GetUserByEmail(string email)
         {
             return await _userManagementService.GetUserByEmail(email);
         }
         
         [HttpDelete]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> RemoveUser(string username)
         {
             try
