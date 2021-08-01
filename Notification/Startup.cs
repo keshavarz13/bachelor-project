@@ -1,10 +1,13 @@
+using System.Collections.Generic;
+using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;  
 using Microsoft.AspNetCore.Builder;  
 using Microsoft.AspNetCore.Hosting;  
 using Microsoft.EntityFrameworkCore;  
 using Microsoft.Extensions.Configuration;  
 using Microsoft.Extensions.DependencyInjection;  
-using Microsoft.Extensions.Hosting;  
+using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Notification.Data;
 
@@ -27,21 +30,28 @@ namespace Notification
             services.AddAutoMapper(typeof(Startup));
             
             // For Entity Framework  
-            services.AddDbContext<NotificationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ConnStr")));  
-  
-            
-            // Adding Authentication  
-            services.AddAuthentication(options =>  
-            {  
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;  
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;  
-                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;  
-            })  
-            .AddJwtBearer(options =>  
-            {  
-                options.SaveToken = true;  
-                options.RequireHttpsMetadata = false;
-            });  
+            services.AddDbContext<NotificationDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("ConnStr")));  
+
+            // Configure Authentication
+            services.AddAuthentication(auth =>
+                {
+                    auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    auth.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
+                .AddJwtBearer(options =>
+                {
+                    options.SaveToken = true;
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidIssuer = Configuration["JWT:ValidIssuer"],
+                        ValidateAudience = true,
+                        ValidAudience = Configuration["JWT:ValidAudience"],
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Secret"]))
+                    };
+                });
             
             services.AddMvc();
             services.AddSwaggerGen(c =>
