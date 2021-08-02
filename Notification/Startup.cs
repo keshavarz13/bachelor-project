@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;  
 using Microsoft.AspNetCore.Builder;  
@@ -10,6 +9,10 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Notification.Data;
+using Notification.Repository;
+using Notification.Repository.imp;
+using Notification.Services;
+using Notification.Services.Imp;
 
 namespace Notification
 {
@@ -28,6 +31,11 @@ namespace Notification
             services.AddControllers();
 
             services.AddAutoMapper(typeof(Startup));
+
+            services.AddScoped<IEmailRepository, EmailRepository>();
+            services.AddScoped<ISmsRepository, SmsRepository>();
+            services.AddScoped<ISmsService, SmsService>();
+            services.AddScoped<IEmailRepository, EmailRepository>();
             
             // For Entity Framework  
             services.AddDbContext<NotificationDbContext>(options =>
