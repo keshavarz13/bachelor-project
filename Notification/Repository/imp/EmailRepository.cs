@@ -8,7 +8,7 @@ using Notification.Models;
 
 namespace Notification.Repository.imp
 {
-    public class EmailRepository
+    public class EmailRepository : IEmailRepository
     {
         private readonly IMapper _mapper;
         private readonly NotificationDbContext _db;
