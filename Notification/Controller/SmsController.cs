@@ -1,8 +1,8 @@
+using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Notification.Models;
-using Notification.Repository;
+using Notification.Controller.Contracts;
 using Notification.Services;
 
 namespace Notification.Controller
@@ -12,21 +12,31 @@ namespace Notification.Controller
     public class SmsController : ControllerBase
     {
         private readonly ISmsService _smsService;
+
         public SmsController(ISmsService smsService)
         {
             _smsService = smsService;
         }
 
         [HttpPost]
-        public async Task<IActionResult> Send([FromBody] Sms inputDto)
+        public async Task<IActionResult> Send([FromBody] SmsInputDto inputDto)
         {
             return Ok(await _smsService.SendSms(inputDto));
         }
-        
+
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get(string phoneNumber, DateTime? startCreationTime,
+            DateTime? endCreationTime, DateTime? startReceivingTime, DateTime? endReceivingTime, string smsStatus)
         {
-            return Ok(await _smsService.GetSms());
+            return Ok(await _smsService.GetSmsByFilter(phoneNumber, startCreationTime, endCreationTime,
+                startReceivingTime, endCreationTime, smsStatus));
+        }
+
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<IActionResult> GetById(long id)
+        {
+            return Ok(await _smsService.GetSmsById(id));
         }
     }
 }

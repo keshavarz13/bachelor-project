@@ -22,10 +22,11 @@ namespace Notification.Services.Imp
             _mapper = mapper;
         }
 
-        public async Task<SmsOutputDto> SendSms(Sms sms)
+        public async Task<SmsOutputDto> SendSms(SmsInputDto sms)
         {
-            sms = await SendToprovider(sms);
-            return _mapper.Map<SmsOutputDto>(await _smsRepository.AddAsync(sms));
+            Sms mappedSms = _mapper.Map<Sms>(sms);
+            await SendToProvider(mappedSms);
+            return _mapper.Map<SmsOutputDto>(await _smsRepository.AddAsync(mappedSms));
         }
 
         public async Task<List<SmsOutputDto>> GetSms()
@@ -72,7 +73,7 @@ namespace Notification.Services.Imp
             return await _smsRepository.AddAsync(sms);
         }
 
-        private async Task<Sms> SendToprovider(Sms sms)
+        private async Task<Sms> SendToProvider(Sms sms)
         {
             return sms;
         }
