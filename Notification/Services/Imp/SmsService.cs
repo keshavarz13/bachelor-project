@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Sockets;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
@@ -26,7 +25,7 @@ namespace Notification.Services.Imp
         {
             Sms mappedSms = _mapper.Map<Sms>(sms);
             await SendToProvider(mappedSms);
-            return _mapper.Map<SmsOutputDto>(await _smsRepository.AddAsync(mappedSms));
+            return _mapper.Map<SmsOutputDto>(await SaveToDatabase(mappedSms));
         }
 
         public async Task<List<SmsOutputDto>> GetSms()
@@ -70,11 +69,14 @@ namespace Notification.Services.Imp
 
         private async Task<Sms> SaveToDatabase(Sms sms)
         {
+            sms.CreationTime = DateTime.Now;
+            sms.SmsStatus = SmsStatus.Pending;
             return await _smsRepository.AddAsync(sms);
         }
 
         private async Task<Sms> SendToProvider(Sms sms)
         {
+            sms.ReceivingTime = DateTime.Now;
             return sms;
         }
     }
