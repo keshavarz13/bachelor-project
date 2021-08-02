@@ -17,7 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controller\Contracts" />
     <Folder Include="Data\Migrations" />
   </ItemGroup>
   
