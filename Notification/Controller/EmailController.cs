@@ -7,7 +7,7 @@ using Notification.Services;
 
 namespace Notification.Controller
 {
-    [Route("api/v1/sms")]
+    [Route("api/v1/email")]
     [AllowAnonymous]
     public class EmailController : ControllerBase
     {
