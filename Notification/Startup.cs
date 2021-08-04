@@ -1,3 +1,4 @@
+using System;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;  
 using Microsoft.AspNetCore.Builder;  
@@ -13,6 +14,8 @@ using Notification.Repository;
 using Notification.Repository.imp;
 using Notification.Services;
 using Notification.Services.Imp;
+using Hangfire;
+using Hangfire.SqlServer;
 
 namespace Notification
 {
@@ -61,6 +64,23 @@ namespace Notification
                     };
                 });
             
+            // Add Hangfire services.
+            services.AddHangfire(configuration => configuration
+                .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
+                .UseSimpleAssemblyNameTypeSerializer()
+                .UseRecommendedSerializerSettings()
+                .UseSqlServerStorage(Configuration.GetConnectionString("HangfireConnStr"), new SqlServerStorageOptions
+                {
+                    CommandBatchMaxTimeout = TimeSpan.FromMinutes(5),
+                    SlidingInvisibilityTimeout = TimeSpan.FromMinutes(5),
+                    QueuePollInterval = TimeSpan.Zero,
+                    UseRecommendedIsolationLevel = true,
+                    DisableGlobalLocks = true
+                }));
+            
+            // Add the processing server as IHostedService
+            services.AddHangfireServer();
+            
             services.AddMvc();
             services.AddSwaggerGen(c =>
             {
@@ -101,6 +121,7 @@ namespace Notification
                 app.UseDeveloperExceptionPage();  
             }  
   
+            app.UseHangfireDashboard();
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
@@ -115,6 +136,7 @@ namespace Notification
             app.UseEndpoints(endpoints =>  
             {  
                 endpoints.MapControllers();  
+                endpoints.MapHangfireDashboard();
             });  
         }  
     }  
