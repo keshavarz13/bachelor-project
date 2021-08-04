@@ -35,7 +35,7 @@ namespace Notification
             services.AddScoped<IEmailRepository, EmailRepository>();
             services.AddScoped<ISmsRepository, SmsRepository>();
             services.AddScoped<ISmsService, SmsService>();
-            services.AddScoped<IEmailRepository, EmailRepository>();
+            services.AddScoped<IEmailService, EmailService>();
             
             // For Entity Framework  
             services.AddDbContext<NotificationDbContext>(options =>
