@@ -29,7 +29,7 @@ namespace Notification.Controller
             DateTime? endCreationTime, DateTime? startReceivingTime, DateTime? endReceivingTime, string smsStatus)
         {
             return Ok(await _smsService.GetSmsByFilter(phoneNumber, startCreationTime, endCreationTime,
-                startReceivingTime, endCreationTime, smsStatus));
+                startReceivingTime, endReceivingTime, smsStatus));
         }
 
         [HttpGet]
