@@ -13,5 +13,7 @@ namespace Notification.Services
         Task<List<SmsOutputDto>> GetSmsByFilter(string phoneNumber, DateTime? startCreationTime,
             DateTime? endCreationTime, DateTime? startReceivingTime, DateTime? endReceivingTime, string smsStatus);
         Task<SmsOutputDto> GetSmsById(long id);
+        Task<Sms> SendToProvider(Sms sms);
+        Task UpdateSms();
     }
 }
