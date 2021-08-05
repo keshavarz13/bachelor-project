@@ -114,7 +114,8 @@ namespace Notification
         }  
   
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.  
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)  
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ISmsService smsService,
+            IEmailService emailService)
         {  
             if (env.IsDevelopment())  
             {  
@@ -138,6 +139,11 @@ namespace Notification
                 endpoints.MapControllers();  
                 endpoints.MapHangfireDashboard();
             });  
+            
+            RecurringJob.AddOrUpdate("UpdateSmsStatus", () => smsService.UpdateSms(),
+                Cron.MinuteInterval(30));
+            RecurringJob.AddOrUpdate("UpdateEmailStatus", () => emailService.UpdateUnsentEmail(),
+                Cron.MinuteInterval(30));
         }  
     }  
 }
