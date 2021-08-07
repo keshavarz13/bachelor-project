@@ -39,8 +39,8 @@ namespace Social.Repository.imp
             book.Name = updatedBook.Name;
             book.Summery = updatedBook.Summery;
             book.AuthorId = updatedBook.AuthorId;
-            book.AuthorName = book.AuthorName;
-            book.CreationTime = book.CreationTime;
+            book.AuthorName = updatedBook.AuthorName;
+            book.CreationTime = updatedBook.CreationTime;
             await SaveDataChanges("There was a problem updatin a book in the database");
             return book;
 
