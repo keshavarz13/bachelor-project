@@ -12,6 +12,8 @@ using Microsoft.OpenApi.Models;
 using Hangfire;
 using Hangfire.SqlServer;
 using Social.Data;
+using Social.Repository;
+using Social.Repository.imp;
 
 namespace Social
 {
@@ -29,6 +31,11 @@ namespace Social
         {  
             services.AddControllers();
 
+            services.AddScoped<IBookRepository, BookRepository>();
+            services.AddScoped<IPostRepository, PostRepository>();
+            services.AddScoped<IReadRepository, ReadRepository>();
+            services.AddScoped<IFollowRepository, FollowRepository>();
+            
             services.AddAutoMapper(typeof(Startup));
             
             // For Entity Framework  
