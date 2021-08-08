@@ -1,7 +1,8 @@
 using Identity.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;  
-using Microsoft.EntityFrameworkCore;  
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Identity.Data
 {
@@ -12,7 +13,8 @@ namespace Identity.Data
         }  
         protected override void OnModelCreating(ModelBuilder builder)  
         {  
-            base.OnModelCreating(builder);  
+            base.OnModelCreating(builder); 
+            
             builder.Entity<ApplicationUser>(entity =>
             {
                 entity.HasIndex(u => u.UserName).IsUnique();
@@ -21,6 +23,7 @@ namespace Identity.Data
                 entity.HasIndex(u => u.NormalizedEmail).IsUnique();
                 entity.HasIndex(u => u.PhoneNumber).IsUnique();
             });
+            builder.Entity<ApplicationUser>().HasAlternateKey(c => c.UserUniqueNumber);
         }  
     }  
 }
