@@ -46,7 +46,8 @@ namespace Identity.Services.Imp
             {
                 new Claim("username", user.UserName),
                 new Claim("email", user.Email),
-                new Claim("phone_number", "09127024194"),
+                new Claim("phone_number", user.PhoneNumber),
+                new Claim("UUN", user.UserUniqueNumber.ToString()),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
             };
             authClaims.AddRange(userRoles.Select(userRole => new Claim("role", userRole)));
