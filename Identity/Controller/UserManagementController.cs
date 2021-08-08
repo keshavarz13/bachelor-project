@@ -19,7 +19,6 @@ namespace Identity.Controller
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin")]
         public async Task<List<UserReportOutputDto>> GetUsers()
         {
             return await _userManagementService.GetUsers();
@@ -28,7 +27,6 @@ namespace Identity.Controller
         
         [HttpGet]
         [Route("phone-number/{phoneNumber}")]
-        [Authorize(Roles = "Admin")]
         public async Task<List<UserReportOutputDto>> GetUserByPhoneNumber(string phoneNumber)
         {
             return await _userManagementService.GetUserByPhoneNumber(phoneNumber);
@@ -36,10 +34,23 @@ namespace Identity.Controller
         
         [HttpGet]
         [Route("email/{email}")]
-        [Authorize(Roles = "Admin")]
         public async Task<List<UserReportOutputDto>> GetUserByEmail(string email)
         {
             return await _userManagementService.GetUserByEmail(email);
+        }
+        
+        [HttpGet]
+        [Route("uun/{uun}")]
+        public async Task<UserReportOutputDto> GetUserByEmail(int uun)
+        {
+            return await _userManagementService.GetUserByUun(uun);
+        }
+        
+        [HttpGet]
+        [Route("username/{username}")]
+        public async Task<List<UserReportOutputDto>> GetUserByUsername(string username)
+        {
+            return await _userManagementService.GetUserByUserName(username);
         }
         
         [HttpDelete]
