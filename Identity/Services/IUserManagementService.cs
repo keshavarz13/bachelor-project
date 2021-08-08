@@ -13,5 +13,7 @@ namespace Identity.Services
         Task<List<UserReportOutputDto>> GetUserByPhoneNumber(string phoneNumber);
         Task<List<UserReportOutputDto>> GetUserByEmail(string email);
         Task<IdentityResult> RemoveUser(string username);
+        Task<UserReportOutputDto> GetUserByUun(int uun);
+        Task<List<UserReportOutputDto>> GetUserByUserName(string userName);
     }
 }
