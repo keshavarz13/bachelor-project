@@ -14,31 +14,36 @@ namespace Social.Controller
         }
 
         [HttpPost]
+        [Route("review")]
         public async Task<IActionResult> SendReview()
         {
             throw new NotImplementedException();
         }
 
         [HttpPost]
+        [Route("comment")]
         public async Task<IActionResult> SendComment()
         {
             throw new NotImplementedException();
         }
 
         [HttpPost]
+        [Route("qout")]
         public async Task<IActionResult> SendQuotation()
         {
             throw new NotImplementedException();
         }
 
         [HttpGet]
+        [Route("feed")]
         public async Task<IActionResult> GetFeed()
         {
             throw new NotImplementedException();
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetPostDetails()
+        [Route("details/{id}")]
+        public async Task<IActionResult> GetPostDetails(long id)
         {
             throw new NotImplementedException();
         }

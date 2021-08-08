@@ -20,19 +20,22 @@ namespace Social.Controller
         }
         
         [HttpGet]
-        public async Task<IActionResult> FollowBasicInfo()
+        [Route("basic-info/{uun}")]
+        public async Task<IActionResult> FollowBasicInfo(int uun)
         {
             throw new NotImplementedException();
         }
         
         
         [HttpGet]
+        [Route("followers/{uun}")]
         public async Task<IActionResult> Followers()
         {
             throw new NotImplementedException();
         }
         
         [HttpGet]
+        [Route("following/{uun}")]
         public async Task<IActionResult> Following()
         {
             throw new NotImplementedException();
