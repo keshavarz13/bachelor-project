@@ -56,14 +56,16 @@ namespace Social.Services.Imp
                 .FirstOrDefaultAsync());
         }
 
-        public async Task<Book> AddNewBook(Book book)
+        public async Task<Book> AddNewBook(BookInputDto bookInputDto)
         {
+            var book = _mapper.Map<Book>(bookInputDto);
             book.CreationTime = DateTime.Now;
             return await _bookRepository.AddAsync(book);
         }
         
-        public async Task<Book> UpdateBook(long id, Book book)
+        public async Task<Book> UpdateBook(long id, BookInputDto bookInputDto)
         {
+            var book = _mapper.Map<Book>(bookInputDto);
             return await _bookRepository.UpdateAsync(id ,book);
         }
     }
