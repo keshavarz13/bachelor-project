@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -59,11 +60,20 @@ namespace Social.Controller
                 return BadRequest(e.Message);
             }
         }
-        
-        [HttpDelete]
-        public async Task<IActionResult> RemoveBook()
+
+        [HttpGet]
+        [Route("categories")]
+        public async Task<IActionResult> GetCategory()
         {
-            throw new NotImplementedException();
+            try
+            {
+                return Ok(_bookService.GetCategories());
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return BadRequest(e.Message);
+            }
         }
     }
 }

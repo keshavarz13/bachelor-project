@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -67,6 +68,28 @@ namespace Social.Services.Imp
         {
             var book = _mapper.Map<Book>(bookInputDto);
             return await _bookRepository.UpdateAsync(id ,book);
+        }
+
+        public async Task<List<CategoryOutputDto>> GetCategories()
+        {
+            var result = new List<CategoryOutputDto>();
+            foreach (int i in Enum.GetValues(typeof(BookCategory)))
+            {
+                result.Add(new CategoryOutputDto
+                {
+                    Value = ((BookCategory)i).ToString(),
+                    PersianTitle = GetCreditCashOutEnumDescription((BookCategory)i)
+                });
+            }
+
+            return result;
+        }
+        private static string GetCreditCashOutEnumDescription(BookCategory enumValue)
+        {
+            var fieldInfo = enumValue.GetType().GetField(enumValue.ToString());
+            var descriptionAttributes =
+                (DescriptionAttribute[])fieldInfo.GetCustomAttributes(typeof(DescriptionAttribute), false);
+            return descriptionAttributes.Length > 0 ? descriptionAttributes[0].Description : enumValue.ToString();
         }
     }
 }

@@ -14,6 +14,8 @@ using Hangfire.SqlServer;
 using Social.Data;
 using Social.Repository;
 using Social.Repository.imp;
+using Social.Services;
+using Social.Services.Imp;
 
 namespace Social
 {
@@ -35,6 +37,7 @@ namespace Social
             services.AddScoped<IPostRepository, PostRepository>();
             services.AddScoped<IReadRepository, ReadRepository>();
             services.AddScoped<IFollowRepository, FollowRepository>();
+            services.AddScoped<IBookService, BookService>();
             
             services.AddAutoMapper(typeof(Startup));
             

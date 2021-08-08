@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Social.Models
@@ -16,13 +17,24 @@ namespace Social.Models
 
     public enum BookCategory
     {
+        
+        [Description("فانتزی")]
         Fantasy,
+        [Description("علمی تخیلی")]
         SciFi,
+        [Description("راز")]
         Mystery,
+        [Description("وحشت")]
         Thriller,
+        [Description("عاشقانه")]
         Romance,
+        [Description("وسترن")]
         Westerns,
+        [Description("دیستوپی")]
         Dystopian,
+        [Description("امروزی")]
         Contemporary,
+        [Description("داستانی")]
+        Story
     }
 }

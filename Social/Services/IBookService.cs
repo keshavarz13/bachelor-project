@@ -18,5 +18,7 @@ namespace Social.Services
         Task<Book> AddNewBook(BookInputDto bookInputDto);
 
         Task<Book> UpdateBook(long id, BookInputDto book);
+
+        Task<List<CategoryOutputDto>> GetCategories();
     }
 }
