@@ -18,10 +18,5 @@
     </PackageReference>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.4" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Controller\Contracts" />
-    <Folder Include="Services\Imp" />
-  </ItemGroup>
   
 </Project>

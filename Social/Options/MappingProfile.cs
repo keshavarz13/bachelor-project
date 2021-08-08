@@ -1,4 +1,6 @@
 using AutoMapper;
+using Social.Controller.Contracts;
+using Social.Models;
 
 namespace Social.Options
 {
@@ -6,6 +8,8 @@ namespace Social.Options
     {
         public MappingProfile()
         {
+            CreateMap<Book, BookOutputDto>();
+            CreateMap<BookInputDto, Book>();
         }
     }
 }
