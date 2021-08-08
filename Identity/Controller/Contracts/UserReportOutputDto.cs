@@ -4,7 +4,6 @@ namespace Identity.Controller.Contracts
 {
     public class UserReportOutputDto
     {
-        public string Id { get; set; }
         public int UserUniqueNumber { get; set; }
         public string UserName { get; set; }
         public string NormalizedUserName { get; set; }
