@@ -16,7 +16,7 @@ namespace Social.Services.Imp
 {
     public class FollowService : IFollowService
     {
-         private readonly IFollowRepository _followRepository;
+        private readonly IFollowRepository _followRepository;
         private readonly IMapper _mapper;
         private readonly IHttpClientFactory _httpClientFactory;
 
@@ -42,7 +42,7 @@ namespace Social.Services.Imp
             var followingIds = followingRows.Select(x => x.Followed).ToList();
             return await GetUsersFromIdentityByUun(followingIds);
         }
-       
+
         public async Task<Follow> Follow(int usrUun, int followedUun)
         {
             var follow = new Follow()
@@ -52,7 +52,7 @@ namespace Social.Services.Imp
             };
             return await _followRepository.AddAsync(follow);
         }
-        
+
         public void UnFollow(int usrUun, int followedUun)
         {
             var follow = _followRepository.GetQueryableAsync()
@@ -67,7 +67,8 @@ namespace Social.Services.Imp
             //Needed to setup the body of the request
             StringContent data = new StringContent(json, Encoding.UTF8, "application/json");
             var response =
-                await _httpClientFactory.CreateClient().PostAsync("http://localhost:5000/api/v1/user/bulk-users-by-uun", data);
+                await _httpClientFactory.CreateClient()
+                    .PostAsync("http://localhost:5000/api/v1/user/bulk-users-by-uun", data);
             if (!response.IsSuccessStatusCode)
                 throw new Exception("There is a problem with the identity service.");
             var contentAsString = await response.Content.ReadAsStringAsync();
