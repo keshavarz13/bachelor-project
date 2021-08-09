@@ -15,5 +15,6 @@ namespace Identity.Services
         Task<IdentityResult> RemoveUser(string username);
         Task<UserReportOutputDto> GetUserByUun(int uun);
         Task<List<UserReportOutputDto>> GetUserByUserName(string userName);
+        Task<List<UserReportOutputDto>> GetUsersByUuns(List<int> uuns);
     }
 }

@@ -71,5 +71,20 @@ namespace Identity.Controller
                 throw;
             }
         }
+        
+        [HttpPost]
+        [Route("bulk-users-by-uun")]
+        public async Task<List<UserReportOutputDto>> GetBulkUsers([FromBody] List<int> uuns)
+        {
+            try
+            {
+                return await _userManagementService.GetUsersByUuns(uuns);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
     }
 }

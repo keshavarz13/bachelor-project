@@ -174,6 +174,16 @@ namespace Identity.Services.Imp
             mappedUser.Roles = await _userManager.GetRolesAsync(originalUser);
             return mappedUser;
         }
+        
+        public async Task<List<UserReportOutputDto>> GetUsersByUuns(List<int> uuns)
+        {
+            var originalUser = await _userManager.Users.AsQueryable().Where(x => uuns.Contains(x.UserUniqueNumber))
+                .ToListAsync();
+            var mappedUser = _mapper.Map<List<UserReportOutputDto>>(originalUser);
+            for (var i = 0; i < mappedUser.Count; i++)
+                mappedUser[i].Roles = await _userManager.GetRolesAsync(originalUser[i]);
+            return mappedUser;
+        }
 
         private async Task AddRolesToRoleManager()
         {
