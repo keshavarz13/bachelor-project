@@ -1,12 +1,11 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using Hangfire;
 using Microsoft.EntityFrameworkCore;
 using Social.Controller.Contracts;
+using Social.Helper;
 using Social.Models;
 using Social.Repository;
 
@@ -78,18 +77,10 @@ namespace Social.Services.Imp
                 result.Add(new CategoryOutputDto
                 {
                     Value = ((BookCategory)i).ToString(),
-                    PersianTitle = GetCreditCashOutEnumDescription((BookCategory)i)
+                    PersianTitle = EnumHelper.GetEnumDescription((BookCategory)i)
                 });
             }
-
             return result;
-        }
-        private static string GetCreditCashOutEnumDescription(BookCategory enumValue)
-        {
-            var fieldInfo = enumValue.GetType().GetField(enumValue.ToString());
-            var descriptionAttributes =
-                (DescriptionAttribute[])fieldInfo.GetCustomAttributes(typeof(DescriptionAttribute), false);
-            return descriptionAttributes.Length > 0 ? descriptionAttributes[0].Description : enumValue.ToString();
         }
     }
 }

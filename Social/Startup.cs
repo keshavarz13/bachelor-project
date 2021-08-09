@@ -39,6 +39,7 @@ namespace Social
             services.AddScoped<IFollowRepository, FollowRepository>();
             services.AddScoped<IBookService, BookService>();
             services.AddScoped<IFollowService, FollowService>();
+            services.AddScoped<IPostService, PostService>();
             
             services.AddAutoMapper(typeof(Startup));
             

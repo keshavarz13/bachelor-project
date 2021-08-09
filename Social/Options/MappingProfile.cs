@@ -10,6 +10,8 @@ namespace Social.Options
         {
             CreateMap<Book, BookOutputDto>();
             CreateMap<BookInputDto, Book>();
+            CreateMap<Post, PostOutputDto>();
+            CreateMap<PostInputDto, Post>();
         }
     }
 }
