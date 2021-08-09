@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -58,6 +57,15 @@ namespace Social.Services.Imp
             var follow = _followRepository.GetQueryableAsync()
                 .SingleOrDefault(x => x.Follower == usrUun && x.Followed == followedUun);
             _followRepository.Remove(follow);
+        }
+        
+        public FollowBasicInfoOutputDto BasicInfo(int usrUun)
+        {
+            return new FollowBasicInfoOutputDto
+            {
+                FollowersCount = _followRepository.GetQueryableAsync().Count(x => x.Follower == usrUun),
+                FollowingsCount = _followRepository.GetQueryableAsync().Count(x => x.Followed == usrUun)
+            };
         }
 
         private async Task<List<UserReportOutputDto>> GetUsersFromIdentityByUun(List<long> uuns)

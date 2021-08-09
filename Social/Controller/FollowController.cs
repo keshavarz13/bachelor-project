@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -41,7 +40,7 @@ namespace Social.Controller
         {
             try
             {
-                throw new NotImplementedException();
+                return Ok(_followService.BasicInfo(uun));
             }
             catch (Exception e)
             {
@@ -81,7 +80,7 @@ namespace Social.Controller
             }
         }
 
-        [HttpPut]
+        [HttpDelete]
         [Route("{followedUun}")]
         [Authorize]
         public async Task<IActionResult> UnFollow(int followedUun)
