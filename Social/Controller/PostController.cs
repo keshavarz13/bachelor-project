@@ -89,7 +89,15 @@ namespace Social.Controller
         [Route("details/{id}")]
         public async Task<IActionResult> GetPostDetails(long id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return Ok(await _postService.GetPostDetails(id));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return BadRequest(e.Message);
+            }
         }
         
         private string GetClaimsByName(string name)

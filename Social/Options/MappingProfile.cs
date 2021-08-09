@@ -11,6 +11,8 @@ namespace Social.Options
             CreateMap<Book, BookOutputDto>();
             CreateMap<BookInputDto, Book>();
             CreateMap<Post, PostOutputDto>();
+            CreateMap<Post, PostDetailsOutputDto>();
+            CreateMap<Post, CommentOutputDto>();
             CreateMap<PostInputDto, Post>();
         }
     }
