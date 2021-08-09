@@ -19,11 +19,12 @@ namespace Social.Controller
         }
         
         [HttpGet]
-        public async Task<IActionResult> GetBooks()
+        public async Task<IActionResult> GetBooks(string name, DateTime? startCreationTime, DateTime? endCreationTime,
+            int authorId)
         {
             try
             {
-                return Ok(await _bookService.GetBooks());
+                return Ok(await _bookService.GetBookByFilter(name,startCreationTime,endCreationTime, authorId));
             }
             catch (Exception e)
             {
