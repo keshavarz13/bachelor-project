@@ -38,8 +38,11 @@ namespace Social
             services.AddScoped<IReadRepository, ReadRepository>();
             services.AddScoped<IFollowRepository, FollowRepository>();
             services.AddScoped<IBookService, BookService>();
+            services.AddScoped<IFollowService, FollowService>();
             
             services.AddAutoMapper(typeof(Startup));
+            
+            services.AddHttpClient();
             
             // For Entity Framework  
             services.AddDbContext<SocialDbContext>(options =>

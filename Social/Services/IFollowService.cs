@@ -1,6 +1,6 @@
 namespace Social.Services
 {
-    public class IFollowService
+    public interface IFollowService
     {
         
     }
