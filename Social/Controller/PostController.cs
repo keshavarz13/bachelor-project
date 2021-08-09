@@ -1,44 +1,88 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Social.Controller.Contracts;
+using Social.Services;
 
 namespace Social.Controller
 {
     [Route("api/v1/post")]
     [AllowAnonymous]
-    public class PostController
+    public class PostController : Microsoft.AspNetCore.Mvc.Controller
     {
-        public PostController()
+        private readonly IPostService _postService;
+        public PostController(IPostService postService)
         {
+            _postService = postService;
         }
 
         [HttpPost]
         [Route("review")]
-        public async Task<IActionResult> SendReview()
+        [Authorize]
+        public async Task<IActionResult> SendReview([FromBody] PostInputDto inputDto)
         {
-            throw new NotImplementedException();
+            var followerUun = Convert.ToInt32(GetClaimsByName("UUN"));
+            try
+            {
+                return Ok(await _postService.SendPost(followerUun, inputDto));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return BadRequest(e.Message);
+            }
         }
 
         [HttpPost]
         [Route("comment")]
-        public async Task<IActionResult> SendComment()
+        [Authorize]
+        public async Task<IActionResult> SendComment([FromBody] PostInputDto inputDto)
         {
-            throw new NotImplementedException();
+            var followerUun = Convert.ToInt32(GetClaimsByName("UUN"));
+            try
+            {
+                return Ok(await _postService.SendPost(followerUun, inputDto));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return BadRequest(e.Message);
+            }
         }
 
         [HttpPost]
         [Route("qout")]
-        public async Task<IActionResult> SendQuotation()
+        [Authorize]
+        public async Task<IActionResult> SendQuotation([FromBody] PostInputDto inputDto)
         {
-            throw new NotImplementedException();
+            var followerUun = Convert.ToInt32(GetClaimsByName("UUN"));
+            try
+            {
+                return Ok(await _postService.SendPost(followerUun, inputDto));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return BadRequest(e.Message);
+            }
         }
 
         [HttpGet]
         [Route("feed")]
         public async Task<IActionResult> GetFeed()
         {
-            throw new NotImplementedException();
+            var followerUun = Convert.ToInt32(GetClaimsByName("UUN"));
+            try
+            {
+                return Ok(await _postService.GetFeed(followerUun));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return BadRequest(e.Message);
+            }
         }
 
         [HttpGet]
@@ -46,6 +90,14 @@ namespace Social.Controller
         public async Task<IActionResult> GetPostDetails(long id)
         {
             throw new NotImplementedException();
+        }
+        
+        private string GetClaimsByName(string name)
+        {
+            //First get user claims    
+            var claims = User.Claims.ToList();
+            //Filter specific claim    
+            return claims?.Where(x => x.Type == name).FirstOrDefault()?.Value;
         }
     }
 }
