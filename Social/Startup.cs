@@ -40,6 +40,7 @@ namespace Social
             services.AddScoped<IBookService, BookService>();
             services.AddScoped<IFollowService, FollowService>();
             services.AddScoped<IPostService, PostService>();
+            services.AddScoped<IReadService, ReadService>();
             
             services.AddAutoMapper(typeof(Startup));
             

@@ -14,6 +14,8 @@ namespace Social.Options
             CreateMap<Post, PostDetailsOutputDto>();
             CreateMap<Post, CommentOutputDto>();
             CreateMap<PostInputDto, Post>();
+            CreateMap<Read, ReadOutputDto>();
+            CreateMap<ReadInputDto, Read>();
         }
     }
 }

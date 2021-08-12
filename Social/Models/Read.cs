@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Social.Models
@@ -17,8 +18,11 @@ namespace Social.Models
 
     public enum ReadStatus
     {
+        [Description("قبلا خوندم")]
         Read,
+        [Description("دارم میخونم")]
         Reading,
+        [Description("دوست دارم بخونم")]
         Interested
     }
 }

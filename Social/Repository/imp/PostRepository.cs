@@ -27,6 +27,7 @@ namespace Social.Repository.imp
         
         public async Task<Post> AddAsync(Post post)
         {
+            post.CreationTime = DateTime.Now;
             var result = await _db.Post.AddAsync(post);
             await SaveDataChanges("There was a problem registering a new post in the database");
             return post;

@@ -69,12 +69,12 @@ namespace Social.Services.Imp
             return await _bookRepository.UpdateAsync(id ,book);
         }
 
-        public async Task<List<CategoryOutputDto>> GetCategories()
+        public async Task<List<EnumOutputDto>> GetCategories()
         {
-            var result = new List<CategoryOutputDto>();
+            var result = new List<EnumOutputDto>();
             foreach (int i in Enum.GetValues(typeof(BookCategory)))
             {
-                result.Add(new CategoryOutputDto
+                result.Add(new EnumOutputDto
                 {
                     Value = ((BookCategory)i).ToString(),
                     PersianTitle = EnumHelper.GetEnumDescription((BookCategory)i)

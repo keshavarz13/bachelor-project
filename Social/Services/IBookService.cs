@@ -19,6 +19,6 @@ namespace Social.Services
 
         Task<Book> UpdateBook(long id, BookInputDto book);
 
-        Task<List<CategoryOutputDto>> GetCategories();
+        Task<List<EnumOutputDto>> GetCategories();
     }
 }
