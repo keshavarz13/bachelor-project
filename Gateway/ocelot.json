@@ -1,0 +1,45 @@
+{
+  "Routes": [
+    // IDENTITY
+    {
+      "DownstreamPathTemplate": "/api/v1/user-management/{AT}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5000
+        }
+      ],
+      "UpstreamPathTemplate": "/identity/api/v1/user-management/{AT}",
+      "UpstreamHttpMethod": [ "POST", "PUT", "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/v1/user/username/{AT}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5000
+        }
+      ],
+      "UpstreamPathTemplate": "/identity/api/v1/user/{AT}",
+      "UpstreamHttpMethod": [ "POST", "PUT", "GET" ]
+    },
+    //NOTIFICATION
+    {
+      "DownstreamPathTemplate": "/api/v1/{AT}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 1300
+        }
+      ],
+      "UpstreamPathTemplate": "/notification/api/v1/{AT}",
+      "UpstreamHttpMethod": [ "POST", "PUT", "GET" ]
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "http://localhost:9000"
+  }
+}

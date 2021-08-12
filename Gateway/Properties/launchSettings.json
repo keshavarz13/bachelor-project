@@ -15,12 +15,11 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "Notification": {
+    "Gateway": {
       "commandName": "Project",
       "dotnetRunMessages": "true",
       "launchBrowser": true,
       "applicationUrl": "http://localhost:9000",
-      "launchUrl": "swagger",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
