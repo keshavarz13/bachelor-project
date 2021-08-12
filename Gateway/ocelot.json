@@ -1,6 +1,5 @@
 {
   "Routes": [
-    // IDENTITY
     {
       "DownstreamPathTemplate": "/api/v1/user-management/{AT}",
       "DownstreamScheme": "http",
@@ -25,7 +24,7 @@
       "UpstreamPathTemplate": "/identity/api/v1/user/{AT}",
       "UpstreamHttpMethod": [ "POST", "PUT", "GET" ]
     },
-    //NOTIFICATION
+    
     {
       "DownstreamPathTemplate": "/api/v1/{AT}",
       "DownstreamScheme": "http",
@@ -37,6 +36,79 @@
       ],
       "UpstreamPathTemplate": "/notification/api/v1/{AT}",
       "UpstreamHttpMethod": [ "POST", "PUT", "GET" ]
+    },
+    
+    {
+      "DownstreamPathTemplate": "/api/v1/follow/{AT}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 6400
+        }
+      ],
+      "UpstreamPathTemplate": "/api/v1/follow/{AT}",
+      "UpstreamHttpMethod": [ "POST", "PUT", "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/v1/book/{AT}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 6400
+        }
+      ],
+      "UpstreamPathTemplate": "/api/v1/book/{AT}",
+      "UpstreamHttpMethod": [ "POST", "PUT", "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/v1/book/",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 6400
+        }
+      ],
+      "UpstreamPathTemplate": "/api/v1/book/",
+      "UpstreamHttpMethod": [ "POST", "PUT", "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/v1/reads/{AT}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 6400
+        }
+      ],
+      "UpstreamPathTemplate": "/api/v1/reads/{AT}",
+      "UpstreamHttpMethod": [ "POST", "PUT", "GET", "DELETE" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/v1/reads/",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 6400
+        }
+      ],
+      "UpstreamPathTemplate": "/api/v1/reads/",
+      "UpstreamHttpMethod": [ "POST", "PUT", "GET", "DELETE" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/v1/post/{AT}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 6400
+        }
+      ],
+      "UpstreamPathTemplate": "/api/v1/post/{AT}",
+      "UpstreamHttpMethod": [ "POST", "PUT", "GET", "DELETE" ]
     }
   ],
   "GlobalConfiguration": {

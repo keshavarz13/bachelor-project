@@ -7,7 +7,7 @@ using Social.Services;
 
 namespace Social.Controller
 {
-    [Microsoft.AspNetCore.Components.Route("api/v1/Follow")]
+    [Route("api/v1/follow")]
     public class FollowController : Microsoft.AspNetCore.Mvc.Controller
     {
         private readonly IFollowService _followService;
