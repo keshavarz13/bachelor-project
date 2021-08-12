@@ -77,7 +77,7 @@ namespace Identity
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
-                    Title = "My Awesome API",
+                    Title = "Identity API",
                     Version = "v1"
                 });
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
