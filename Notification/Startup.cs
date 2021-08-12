@@ -86,7 +86,7 @@ namespace Notification
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
-                    Title = "My Awesome API",
+                    Title = "Notification API",
                     Version = "v1"
                 });
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
@@ -126,7 +126,7 @@ namespace Notification
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My Awesome API V1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Notification V1");
             });
             
             app.UseRouting();  
