@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Ocelot.DependencyInjection;
@@ -29,6 +31,16 @@ namespace Gateway
                         .AddEnvironmentVariables();
                 })
                 .ConfigureServices(s => {
+                    s.AddCors(options =>
+                    {
+                        options.AddPolicy("AllowAllHeaders",
+                            builder =>
+                            {
+                                builder.AllowAnyOrigin()
+                                    .AllowAnyHeader()
+                                    .AllowAnyMethod();
+                            });
+                    });
                     s.AddOcelot();
                 })
                 .ConfigureLogging((hostingContext, logging) =>
@@ -38,6 +50,7 @@ namespace Gateway
                 .UseIISIntegration()
                 .Configure(app =>
                 {
+                    app.UseCors("AllowAllHeaders");
                     app.UseOcelot().Wait();
                 })
                 .Build()
