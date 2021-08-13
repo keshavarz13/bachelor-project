@@ -11,6 +11,6 @@ namespace Social.Services
         Task<List<UserReportOutputDto>> GetFollowings(int uun);
         Task<Follow> Follow(int usrUun, int followedUun);
         void UnFollow(int usrUun, int followedUun);
-        FollowBasicInfoOutputDto BasicInfo(int usrUun);
+        Task<FollowBasicInfoOutputDto> BasicInfo(int usrUun);
     }
 }

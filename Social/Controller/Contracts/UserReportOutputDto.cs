@@ -10,6 +10,7 @@ namespace Social.Controller.Contracts
         public string Email { get; set; }
         public string NormalizedEmail { get; set; }
         public string PhoneNumber { get; set; }
+        public string Name { get; set; }
         public IList Roles { get; set; }
     }
 }

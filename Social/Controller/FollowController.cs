@@ -40,7 +40,22 @@ namespace Social.Controller
         {
             try
             {
-                return Ok(_followService.BasicInfo(uun));
+                return Ok(await _followService.BasicInfo(uun));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return BadRequest(e.Message);
+            }
+        }
+        
+        [HttpGet]
+        [Route("basic-info")]
+        public async Task<IActionResult> FollowBasicInfoCurrent()
+        {
+            try
+            {
+                return Ok(await _followService.BasicInfo(Convert.ToInt32(GetClaimsByName("UUN"))));
             }
             catch (Exception e)
             {

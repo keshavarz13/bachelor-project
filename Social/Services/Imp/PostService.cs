@@ -43,7 +43,7 @@ namespace Social.Services.Imp
             foreach (var post in result)
             {
                 post.RelatedBookName = (await _bookRepository.GetByIdAsync(post.RelatedBook)).Name;
-                post.CreatorUserIdName = following.Single(x => x.UserUniqueNumber == post.CreatorUserId).UserName;
+                post.CreatorUserName = following.Single(x => x.UserUniqueNumber == post.CreatorUserId).UserName;
             }
 
             return result;

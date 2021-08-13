@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -59,15 +60,46 @@ namespace Social.Services.Imp
             _followRepository.Remove(follow);
         }
         
-        public FollowBasicInfoOutputDto BasicInfo(int usrUun)
+        public async Task<FollowBasicInfoOutputDto> BasicInfo(int usrUun)
         {
+            var uun = new List<long>();
+            uun.Add(usrUun);
+            var details = await GetUsersFromIdentityByUun(uun);
+            
             return new FollowBasicInfoOutputDto
             {
                 FollowersCount = _followRepository.GetQueryableAsync().Count(x => x.Follower == usrUun),
-                FollowingsCount = _followRepository.GetQueryableAsync().Count(x => x.Followed == usrUun)
+                FollowingsCount = _followRepository.GetQueryableAsync().Count(x => x.Followed == usrUun),
+                Email = details.First().Email,
+                Name = details.First().Name,
+                PhoneNumber = details.First().PhoneNumber,
+                UserName = details.First().UserName,
+                Rules = TranslateRules(details.First().Roles),
+                UserId = usrUun
             };
         }
 
+        private string TranslateRules(IList roles)
+        {
+            var result = "";
+            foreach (var role in roles)
+            {
+                switch (role)
+                {
+                    case "Admin":
+                        result += "ادمین | ";
+                        break;
+                    case "Writer":
+                        result += "نویسنده | ";
+                        break;
+                    case "User":
+                        result += "کاربر | ";
+                        break;
+                }
+            }
+
+            return result;
+        }
         private async Task<List<UserReportOutputDto>> GetUsersFromIdentityByUun(List<long> uuns)
         {
             //Converting the object to a json string. NOTE: Make sure the object doesn't contain circular references.
