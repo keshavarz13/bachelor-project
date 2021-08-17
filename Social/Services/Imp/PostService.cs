@@ -71,9 +71,13 @@ namespace Social.Services.Imp
             var userInfos = await GetUsersFromIdentityByUun(usrIds); 
             mainPost.RelatedBookName = (await _bookRepository.GetByIdAsync(mainPost.RelatedBook)).Name;
             mainPost.CreatorUserIdName = userInfos.First(usr => usr.UserUniqueNumber == mainPost.CreatorUserId).UserName;
-            foreach (var comment in mainPost.Comments)
+            mainPost.Name = userInfos.First(usr => usr.UserUniqueNumber == mainPost.CreatorUserId).Name;
+            foreach (var comment in mainPost.Comments){
                 comment.CreatorUserName =
                     userInfos.First(usr => usr.UserUniqueNumber == comment.CreatorUserId).UserName;
+                comment.Name =  userInfos.First(usr => usr.UserUniqueNumber == comment.CreatorUserId).Name;
+            }
+            
             return mainPost;
         }
 

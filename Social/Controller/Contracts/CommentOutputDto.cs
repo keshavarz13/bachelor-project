@@ -9,5 +9,6 @@ namespace Social.Controller.Contracts
         public string CreatorUserName { get; set; }
         public DateTime CreationTime { get; set; }
         public string Context { get; set; }
+        public string Name { get; set; }
     }
 }
