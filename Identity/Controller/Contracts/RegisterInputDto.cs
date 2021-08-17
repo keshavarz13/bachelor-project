@@ -16,5 +16,7 @@ namespace Identity.Controller.Contracts
         
         [Required(ErrorMessage = "PhoneNumber is required")]
         public string PhoneNumber { get; set; }
+        [Required(ErrorMessage = "Name is required")]
+        public string Name { get; set; }
     }
 }

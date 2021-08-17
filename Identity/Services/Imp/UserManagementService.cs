@@ -83,7 +83,8 @@ namespace Identity.Services.Imp
                 Email = inputDto.Email,
                 SecurityStamp = Guid.NewGuid().ToString(),
                 UserName = inputDto.Username,
-                PhoneNumber = inputDto.PhoneNumber
+                PhoneNumber = inputDto.PhoneNumber,
+                Name = inputDto.Name
             };
             var result = await _userManager.CreateAsync(user, inputDto.Password);
             if (!result.Succeeded)
