@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -53,6 +54,7 @@ namespace Social.Controller
         [Authorize]
         public async Task<IActionResult> AddReads([FromBody]ReadInputDto inputDto)
         {
+            inputDto.UserId = Convert.ToInt32(GetClaimsByName("UUN"));
             try
             {
                 return Ok(await _readService.AddReadStatus(inputDto));
@@ -77,6 +79,14 @@ namespace Social.Controller
                 Console.WriteLine(e);
                 return BadRequest(e.Message);
             }
+        }
+        
+        private string GetClaimsByName(string name)
+        {
+            //First get user claims    
+            var claims = User.Claims.ToList();
+            //Filter specific claim    
+            return claims?.Where(x => x.Type == name).FirstOrDefault()?.Value;
         }
     }
 }
