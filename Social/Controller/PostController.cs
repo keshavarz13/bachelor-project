@@ -100,6 +100,21 @@ namespace Social.Controller
             }
         }
         
+        [HttpGet]
+        [Route("user-posts/{uun}")]
+        public async Task<IActionResult> GetUserPost(int uun)
+        {
+            try
+            {
+                return Ok(await _postService.GetUserPosts(uun));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return BadRequest(e.Message);
+            }
+        }
+        
         private string GetClaimsByName(string name)
         {
             //First get user claims    

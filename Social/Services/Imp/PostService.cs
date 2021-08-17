@@ -44,8 +44,24 @@ namespace Social.Services.Imp
             {
                 post.RelatedBookName = (await _bookRepository.GetByIdAsync(post.RelatedBook)).Name;
                 post.CreatorUserName = following.Single(x => x.UserUniqueNumber == post.CreatorUserId).UserName;
+                post.Name = following.Single(x => x.UserUniqueNumber == post.CreatorUserId).Name;
             }
 
+            return result;
+        }
+        
+        public async Task<List<PostOutputDto>> GetUserPosts(int uun)
+        {
+            var user = await GetUsersFromIdentityByUun(new List<long> { uun });
+            var result = _mapper.Map<List<PostOutputDto>>(await _postRepository.GetQueryableAsync()
+                .Where(post => post.CreatorUserId == uun && post.PostType != PostType.Comment)
+                .OrderByDescending(post => post.Id).ToListAsync());
+            foreach (var post in result)
+            {
+                post.RelatedBookName = (await _bookRepository.GetByIdAsync(post.RelatedBook)).Name;
+                post.CreatorUserName = user.First().UserName;
+                post.Name = user.First().Name;
+            }
             return result;
         }
 

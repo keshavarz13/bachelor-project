@@ -9,5 +9,6 @@ namespace Social.Services
         Task<List<PostOutputDto>> GetFeed(int uun);
         Task<PostOutputDto> SendPost(int uun, PostInputDto inputDto);
         Task<PostDetailsOutputDto> GetPostDetails(long id);
+        Task<List<PostOutputDto>> GetUserPosts(int uun);
     }
 }
