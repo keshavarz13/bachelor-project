@@ -46,7 +46,20 @@ namespace Social.Controller
                 return BadRequest(e.Message);
             }
         }
-
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<IActionResult> GetBookId(long id)
+        {
+            try
+            {
+                return Ok(await _bookService.GetBookById(id));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return BadRequest(e.Message);
+            }
+        }
         [HttpPut]
         [Route("{id}")]
         public async Task<IActionResult> EditBook(long id, [FromBody]BookInputDto inputDto)
