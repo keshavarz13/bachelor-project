@@ -28,6 +28,16 @@ namespace Identity
         // This method gets called by the runtime. Use this method to add services to the container.  
         public void ConfigureServices(IServiceCollection services)  
         {  
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAllHeaders",
+                    builder =>
+                    {
+                        builder.AllowAnyOrigin()
+                            .AllowAnyHeader()
+                            .AllowAnyMethod();
+                    });
+            });
             services.AddControllers();
 
             services.AddScoped<IUserManagementService, UserManagementService>();
@@ -111,7 +121,7 @@ namespace Identity
             {  
                 app.UseDeveloperExceptionPage();  
             }  
-  
+            app.UseCors("AllowAllHeaders");
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
