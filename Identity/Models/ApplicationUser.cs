@@ -7,5 +7,6 @@ namespace Identity.Models
     {  
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int UserUniqueNumber { get; set; }
+        public string Name { get; set; }
     }  
 }
