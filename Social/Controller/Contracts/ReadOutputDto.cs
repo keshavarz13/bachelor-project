@@ -10,6 +10,7 @@ namespace Social.Controller.Contracts
         public bool IsEdited { get; set; }
         public long UserId { get; set; }
         public string UserName { get; set; }
+        public string UserNameTitle { get; set; }
         public long BookId { get; set; }
         public string BookName { get; set; }
         public short Score { get; set; }

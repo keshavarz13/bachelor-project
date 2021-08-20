@@ -52,6 +52,7 @@ namespace Social.Services.Imp
             foreach (var read in reads)
             {
                 read.UserName = usr.UserName;
+                read.UserNameTitle = usr.Name;
                 read.BookName = (await _bookRepository.GetByIdAsync(read.BookId)).Name;
                 read.DateTime = originalReads.Single(x => x.Id == read.Id).LastModificationTime ;
                 read.IsEdited = !(originalReads.Single(x => x.Id == read.Id).LastModificationTime ==
@@ -71,6 +72,7 @@ namespace Social.Services.Imp
             var bookName = (await _bookRepository.GetByIdAsync(bookId)).Name;
             foreach (var read in reads)
             {
+                read.UserNameTitle = usrs.First(r => r.UserUniqueNumber == read.UserId).Name;
                 read.UserName = usrs.First(r => r.UserUniqueNumber == read.UserId).UserName;
                 read.BookName = bookName;
                 read.DateTime = originalReads.Single(x => x.Id == read.Id).LastModificationTime ;
